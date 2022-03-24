@@ -69,7 +69,7 @@ begin
   FMainDir := ExtractFilePath(ParamStr(0));
   FLanguageDir := FMainDir + 'Languages\';
   ForceDirectories(FLanguageDir);
-  FSettingsFile := ChangeFileExt(ParamStr(0), '.ini');
+  FSettingsFile := FMainDir + 'WallpaperInspector.ini';
 
   LoadSettings;
   LoadLanguageFromFile(FLanguageDir + FCurrentLanguage);
