@@ -1,0 +1,8 @@
+[UI]
+Caption=Инспектор обоев
+ImageBox=Изображение
+ButtonExplore=Открыть
+ButtonDelete=Удалить
+ButtonClose=Закрыть
+[Dialogs]
+Delete=Удалить изображение?
