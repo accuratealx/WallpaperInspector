@@ -58,7 +58,7 @@ uses
   Registry, IniFiles, sgeWindowsVersion;
 
 const
-  APP_VERSION = '0.1';
+  APP_VERSION = '0.2';
   SECTION_SYSTEM = 'System';
   PARAM_LANGUAGE = 'Language';
   PARAM_SKIP_DELETE_MESSAGE = 'SkipDeleteMessage';
