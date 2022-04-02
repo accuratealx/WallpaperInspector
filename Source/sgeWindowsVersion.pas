@@ -54,18 +54,19 @@ begin
 
   FillChar(Ver, SizeOf(Ver), 0);
   Ver.dwOSVersionInfoSize := SizeOf(OSVERSIONINFOEXA);
-  if not GetVersionEx(Ver) then Exit;
+  if not GetVersionEx(Ver) then
+    Exit;
 
-  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 0) and (Ver.wProductType = VER_NT_WORKSTATION) then Result := wvVista;
+  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 0) and (Ver.wProductType = VER_NT_WORKSTATION)  then Result := wvVista;
   if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 0) and (Ver.wProductType <> VER_NT_WORKSTATION) then Result := wvServer2008;
   if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 1) and (Ver.wProductType <> VER_NT_WORKSTATION) then Result := wvServer2008R2;
-  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 1) and (Ver.wProductType = VER_NT_WORKSTATION) then Result := wv7;
+  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 1) and (Ver.wProductType = VER_NT_WORKSTATION)  then Result := wv7;
   if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 2) and (Ver.wProductType <> VER_NT_WORKSTATION) then Result := WvServer2012;
-  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 2) and (Ver.wProductType = VER_NT_WORKSTATION) then Result := wv8;
+  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 2) and (Ver.wProductType = VER_NT_WORKSTATION)  then Result := wv8;
   if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 3) and (Ver.wProductType <> VER_NT_WORKSTATION) then Result := wvServer2012R2;
-  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 3) and (Ver.wProductType = VER_NT_WORKSTATION) then Result := wv81;
+  if (Ver.dwMajorVersion = 6)  and (Ver.dwMinorVersion = 3) and (Ver.wProductType = VER_NT_WORKSTATION)  then Result := wv81;
   if (Ver.dwMajorVersion = 10) and (Ver.dwMinorVersion = 0) and (Ver.wProductType <> VER_NT_WORKSTATION) then Result := wvServer2016;
-  if (Ver.dwMajorVersion = 10) and (Ver.dwMinorVersion = 0) and (Ver.wProductType = VER_NT_WORKSTATION) then Result := wv10;
+  if (Ver.dwMajorVersion = 10) and (Ver.dwMinorVersion = 0) and (Ver.wProductType = VER_NT_WORKSTATION)  then Result := wv10;
 end;
 
 

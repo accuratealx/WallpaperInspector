@@ -32,13 +32,14 @@ type
     FCurrentLanguage: String;
 
     FLngDialogDelete: String;
+    FSkipDeleteDialog: Boolean;
 
     procedure SaveSettings;
     procedure LoadSettings;
     procedure LoadLanguageFromFile(FileName: String);
     procedure ArrangeItems;
     procedure SetEmptyImage;
-    function GetWallpaperFilePathFromRegistry: String;
+    function  GetWallpaperFilePathFromRegistry: String;
     procedure Refresh;
 
     procedure SetCurrentFile(AValue: String);
@@ -60,6 +61,7 @@ const
   APP_VERSION = '0.1';
   SECTION_SYSTEM = 'System';
   PARAM_LANGUAGE = 'Language';
+  PARAM_SKIP_DELETE_MESSAGE = 'SkipDeleteMessage';
 
 {$R *.lfm}
 
@@ -105,6 +107,7 @@ var
 begin
   F :=  TIniFile.Create(FSettingsFile);
   F.WriteString(SECTION_SYSTEM, PARAM_LANGUAGE, FCurrentLanguage);
+  F.WriteBool(SECTION_SYSTEM, PARAM_SKIP_DELETE_MESSAGE, FSkipDeleteDialog);
   F.Free;
 end;
 
@@ -115,6 +118,7 @@ var
 begin
   F :=  TIniFile.Create(FSettingsFile);
   FCurrentLanguage := F.ReadString(SECTION_SYSTEM, PARAM_LANGUAGE, 'English.Lng');
+  FSkipDeleteDialog := F.ReadBool(SECTION_SYSTEM, PARAM_SKIP_DELETE_MESSAGE, False);
   F.Free;
 end;
 
@@ -270,21 +274,21 @@ var
   FileOp: TSHFILEOPSTRUCTW;
   ErrCode: Integer;
 begin
-  if MessageDlg('', FLngDialogDelete + sLineBreak + FCurrentFile, mtConfirmation, mbYesNo, 0) = mrYes then
-    begin
-    FileOp.wFunc := FO_DELETE;
-    FileOp.wnd := Handle;
-    FileOp.pFrom := PWideChar(UTF8ToUTF16(FCurrentFile + #0));
-    FileOp.fFlags := FOF_SILENT or FOF_ALLOWUNDO;
-    ErrCode := SHFileOperationW(@FileOp);
-    if ErrCode = 0 then
-      begin
-      CurrentFile := '';
-      SetEmptyImage;
-      end
-      else
-        ShowMessage('File delete error');
-    end;
+  if not FSkipDeleteDialog then
+    if MessageDlg('', FLngDialogDelete + sLineBreak + FCurrentFile, mtConfirmation, mbYesNo, 0) = mrNo then Exit;
+
+  FileOp.wFunc := FO_DELETE;
+  FileOp.wnd := Handle;
+  FileOp.pFrom := PWideChar(UTF8ToUTF16(FCurrentFile + #0));
+  FileOp.fFlags := FOF_SILENT or FOF_ALLOWUNDO;
+  ErrCode := SHFileOperationW(@FileOp);
+  if ErrCode = 0 then
+  begin
+    CurrentFile := '';
+    SetEmptyImage;
+  end
+  else
+      ShowMessage('File delete error');
 end;
 
 
