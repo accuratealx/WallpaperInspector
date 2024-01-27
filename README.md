@@ -1,4 +1,4 @@
-# Программа для поиска текушего файла обоев рабочего стола
+# Программа для поиска текущего файла обоев рабочего стола
 
 ![](https://img.shields.io/github/v/release/accuratealx/DayzModTool)
 ![](https://img.shields.io/github/stars/accuratealx/DayzModTool)
